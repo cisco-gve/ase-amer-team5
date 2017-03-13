@@ -31,7 +31,7 @@ You will find the corresponding folders for each step.
 
 
 ###API Documentation
-* [Threat Grid Documentation - requires TG account](https://panacea.threatgrid.com/login?next=%2F)
+* [Cisco Asset Management REST API](https://cem-update.cisco.com/download/files/5.2.0/docs/CEM_REST_API_Reference_Guide/index.html#)
 * [Cisco Jasper Control Center](https://www.jasper.com/get-started/operator-partner-finder) - TBC
 
 
