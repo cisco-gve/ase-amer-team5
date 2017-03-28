@@ -1,4 +1,4 @@
-##ASE AMERICAS Team 5 - Software Project Q3FY17
+## ASE AMERICAS Team 5 - Software Project Q3FY17
 This repository contains code for the software project of ASE AMERICAS Team 5.
 
 The project is organized in a 3 step process, notably:
@@ -10,31 +10,31 @@ You will find the corresponding folders for each step.
 
 
 
-###Team Members
+### Team Members
 * Yale Ohh
 * Tina Saad
 * Akshay Sampath
 
 
 
-###Coaches/Sponsors
+### Coaches/Sponsors
 * Casey Kachmarski
 * Andres Hernandez
 * Ila Gokarn
 * Mike Maas (DevNet Evangelist)
 
 
-##Products in this project
+### Products in this project
 * [Cisco Asset Management Suite](http://www.cisco.com/c/en/us/products/switches/asset-management-suite/index.html)
 * [Cisco Jasper](https://www.jasper.com/) - TBC
 
 
 
-###API Documentation
+### API Documentation
 * [Cisco Asset Management REST API](https://cem-update.cisco.com/download/files/5.2.0/docs/CEM_REST_API_Reference_Guide/index.html#)
 * [Cisco Jasper Control Center](https://www.jasper.com/get-started/operator-partner-finder) - TBC
 
 
 
-###Sample Application - coming soon
+### Sample Application - coming soon
 Coming soon
