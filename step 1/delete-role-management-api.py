@@ -1,6 +1,6 @@
 import requests
 
-url = "http://example.com/api/3.3/management/roles"
+url = "https://198.18.134.173/api/3.3/management/roles"
 
 headers = {
     'content-type': "application/json",

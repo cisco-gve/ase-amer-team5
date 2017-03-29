@@ -1,6 +1,6 @@
 import requests
 
-url = "http://example.com/api/3.3/scripts/js/execute"
+url = "https://198.18.134.173/api/3.3/scripts/js/execute"
 
 headers = {
     'content-type': "application/json",

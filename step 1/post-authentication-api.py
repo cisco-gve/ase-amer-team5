@@ -1,6 +1,6 @@
 import requests
 
-url = "http://198.18.134.173/api/3.3/login"
+url = "https://198.18.134.173/api/3.3/login"
 
 headers = {
     'content-type': "application/json",
