@@ -88,11 +88,11 @@ def CEM(message):
     elif 'CEM Count' in message:
 	return str(deviceCountCEM)
     elif 'CEM Devices' in message:
-		str(deviceSubTotCEM).replace("{","")
-		str(deviceSubTotCEM).replace("}","")
-		str(deviceSubTotCEM).replace("\':",":")
-		str(deviceSubTotCEM).replace("u\'","")
-		str(deviceSubTotCEM).replace(",","\n")
+		deviceSubTotCEM = str(deviceSubTotCEM).replace("{","")
+		deviceSubTotCEM = str(deviceSubTotCEM).replace("}","")
+		deviceSubTotCEM = str(deviceSubTotCEM).replace("\':",":")
+		deviceSubTotCEM = str(deviceSubTotCEM).replace("u\'","")
+		deviceSubTotCEM = str(deviceSubTotCEM).replace(",","\n")
 	return str(deviceSubTotCEM)
     else:
 	print "Nothing"
