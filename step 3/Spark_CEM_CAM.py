@@ -2,10 +2,10 @@ import json
 import requests
 import time
 
-ACCESS_TOKEN_BOT = "<YOUR_BOT_TOKEN>"
-ACCESS_TOKEN = "YOUR_TOKEN" # This token is most probably not needed.
+ACCESS_TOKEN_BOT = "NmRkOTVlNjUtMTUxNy00MDcyLTk5MzAtNTJjOWRjMWM2MDFiMDcwN2E2NWUtYjE5"
+ACCESS_TOKEN = "Mzg1OGExNTctMGQ3ZS00ODdiLTkwZTItY2U0OGY5OTdiOGYyMmZhZTljNDAtNzNh" #put your access token here between the quotes.
 
-roomID = '<YOUR_ROOM_ID>'
+roomID = 'Y2lzY29zcGFyazovL3VzL1JPT00vZGQxYmYzMTAtMDgwMy0xMWU3LWEwZTAtMDdiM2EwMmE2OTVj'
 
 #sets the header to be used for authentication and data format to be sent.
 def setHeaders():
@@ -28,16 +28,13 @@ def createRoom(the_header,room_name):
 	room_id =  var['id']
 	print room_id
 	return room_id
-	#print("createRoom JSON: ", var)
-	#MISSION: ADD CODE HERE TO PARSE AND RETURN THE ROOM ID.
-
 
 # adds a new member to the room.  Member e-mail is test@test.com
 def addMembers(the_header,roomId):
 	member = '{"roomId":"' + roomId + '","personEmail": "<YOUR_EMAIL>", "isModerator": false}'
 	uri = 'https://api.ciscospark.com/v1/memberships'
 	resp = requests.post(uri, data=member, headers=the_header)
-	#print("addMembers JSON: ", resp.json())
+
 
 # #posts a message to the room
 def postMsg(the_header,roomId,message):
@@ -58,15 +55,14 @@ def getRoomMessages(theHeader):
 	return message
 
 def CEM(message):
-    url = "https://<YOUR_IP_ADDRESS>/api/3.0/login"
 
-    response = requests.post('https://<YOUR_IP_ADDRESS>/api/3.0/login?username=<YOUR_USERNAME>&password=<YOUR_PASSWORD>', verify=False)
+    response = requests.post('https://<YOUR_CEM_IP>/api/3.0/login?username=<YOUR_USERNAME>&password=YOUR_PASSWORD', verify=False)
 
     parsed = json.loads(response.content)
     authCEM = parsed['result']['auth']
 
-    url = "https://<YOUR_IP_ADDRESS_CEM>/api/3.0/management/tenants"
-
+    url = "https://<YOUR_CEM_IP>/api/3.0/management/tenants"
+    
     headers = {
     'x-jem-auth': authCEM,
     'content-type': "application/json",
@@ -82,30 +78,33 @@ def CEM(message):
     deviceCustCEM = reqParsedCEM['result']['uiLicense']['customer']
     deviceCountCEM = reqParsedCEM['result']['uiLicense']['deviceCount']
     deviceSubTotCEM = reqParsedCEM['result']['uiLicense']['deviceCounts']['types']
-
+    deviceTotCEM = reqParsedCEM['result']['uiLicense']['deviceCounts']['devices']
+	
     if 'CEM Customer' in message:
     	return deviceCustCEM
     elif 'CEM Count' in message:
 	return str(deviceCountCEM)
     elif 'CEM Devices' in message:
-		deviceSubTotCEM = str(deviceSubTotCEM).replace("{","")
-		deviceSubTotCEM = str(deviceSubTotCEM).replace("}","")
-		deviceSubTotCEM = str(deviceSubTotCEM).replace("\':",":")
-		deviceSubTotCEM = str(deviceSubTotCEM).replace("u\'","")
-		deviceSubTotCEM = str(deviceSubTotCEM).replace(",","\n")
-	return str(deviceSubTotCEM)
+	temp = str(deviceSubTotCEM)
+	temp = temp.replace("{","")
+	temp = temp.replace("}","")
+	temp = temp.replace("\':",":")
+	temp = temp.replace("u\'","")
+	temp = temp.replace(",","\\n")
+	return temp
+    elif 'CEM Total' in message:
+	return str(deviceTotCEM)
     else:
 	print "Nothing"
 
 def CAM(message):
-    url = "https://<YOUR_IP_ADDRESS_CAM>/api/3.0/login"
 
-    response = requests.post('https://<YOUR_IP_ADDRESS_CAM>/api/3.0/login?username=<YOUR_USERNAME>&password=<YOUR_USERNAME>', verify=False)
+    response = requests.post('https://<YOUR_CAM_IP>/api/3.0/login?username=<YOUR_USERNAME>&password=<YOUR_PASSWORD>', verify=False)
 
     parsed = json.loads(response.content)
     authCAM = parsed['result']['auth']
 
-    url = "https://<YOUR_IP_ADDRESS_CAM>/api/3.0/management/tenants"
+    url = "https://<YOUR_CAM_IP>/api/3.0/management/tenants"
 
     headers = {
     'x-jem-auth': authCAM,
@@ -122,29 +121,40 @@ def CAM(message):
     deviceCustCAM = reqParsedCAM['result']['uiLicense']['customer']
     deviceCountCAM = reqParsedCAM['result']['uiLicense']['deviceCount']
     deviceSubTotCAM = reqParsedCAM['result']['uiLicense']['deviceCounts']['types']
+    deviceTotCAM = reqParsedCAM['result']['uiLicense']['deviceCounts']['devices']
 
     if 'CAM Customer' in message:
         return str(deviceCustCAM)
     elif 'CAM Count' in message:
         return str(deviceCountCAM)
     elif 'CAM Devices' in message:
-    	return str(deviceSubTotCAM)
+    	temp = str(deviceSubTotCAM)
+        temp = temp.replace("{","")
+        temp = temp.replace("}","")
+	temp = temp.replace("'':","nknown devices:")
+        temp = temp.replace("\':",":")
+        temp = temp.replace("u\'","")
+        temp = temp.replace(",","\\n")
+	return temp
+    
+    elif 'CAM Total' in message:
+	return str(deviceTotCAM)
     else:
         print "Nothing"
 
 
 
 if __name__ == '__main__':
-
+    
     while True:
 	print "3 sec"
     	header = setHeaders()
     	message = getRoomMessages(header)
 
    	if 'CEM' in message:
-    	    postMsg(setHeaders_bot(), roomID, CEM(message))
+    	    postMsg(setHeaders_bot(), roomID, CEM(message))	  
     	elif 'CAM' in message:
-	    postMsg(setHeaders_bot(), roomID, CAM(message))
+	    postMsg(setHeaders_bot(), roomID, CAM(message)) 
     	else:
 	    print "Nothing"
 	time.sleep(3)
