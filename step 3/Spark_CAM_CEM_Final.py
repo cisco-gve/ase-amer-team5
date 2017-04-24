@@ -66,7 +66,7 @@ def CEM(message):
     authCEM = parsed['result']['auth']
 
     url = "https://<YOUR_IP_ADDRESS_CEM>/api/3.0/management/tenants"
-    
+
     headers = {
     'x-jem-auth': authCEM,
     'content-type': "application/json",
@@ -88,6 +88,11 @@ def CEM(message):
     elif 'CEM Count' in message:
 	return str(deviceCountCEM)
     elif 'CEM Devices' in message:
+		str(deviceSubTotCEM).replace("{","")
+		str(deviceSubTotCEM).replace("}","")
+		str(deviceSubTotCEM).replace("\':",":")
+		str(deviceSubTotCEM).replace("u\'","")
+		str(deviceSubTotCEM).replace(",","\n")
 	return str(deviceSubTotCEM)
     else:
 	print "Nothing"
@@ -123,23 +128,23 @@ def CAM(message):
     elif 'CAM Count' in message:
         return str(deviceCountCAM)
     elif 'CAM Devices' in message:
-    	return str(deviceSubTotCAM)   
+    	return str(deviceSubTotCAM)
     else:
         print "Nothing"
 
 
 
 if __name__ == '__main__':
-    
+
     while True:
 	print "3 sec"
     	header = setHeaders()
     	message = getRoomMessages(header)
 
    	if 'CEM' in message:
-    	    postMsg(setHeaders_bot(), roomID, CEM(message))	  
+    	    postMsg(setHeaders_bot(), roomID, CEM(message))
     	elif 'CAM' in message:
-	    postMsg(setHeaders_bot(), roomID, CAM(message)) 
+	    postMsg(setHeaders_bot(), roomID, CAM(message))
     	else:
 	    print "Nothing"
-	time.sleep(3)	
+	time.sleep(3)
